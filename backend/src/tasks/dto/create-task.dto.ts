@@ -52,7 +52,7 @@ export class CreateTaskDto {
   @ApiProperty({
     type: () => Number,
     required: false,
-    description: 'Opcjonalna lista postów tworzona wraz z użytkownikiem',
+    description: 'Id użytkownika przypisanego do zadania',
     example: 1,
   })
   @IsNumber()
