@@ -6,11 +6,8 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  ValidateNested,
 } from 'class-validator';
-import { User } from 'src/users/entities/user.entity';
 import { Status } from '../entities/task.entity';
-import { Type } from 'class-transformer';
 
 export class CreateTaskDto {
   @ApiProperty({ description: 'Tytuł zadania', example: 'Zadanie 1' })
@@ -28,7 +25,6 @@ export class CreateTaskDto {
 
   @ApiProperty({ description: 'Tag zadania', example: 'Frontend' })
   @IsString()
-  @IsNotEmpty()
   tags: string;
 
   @ApiProperty({ description: 'Priorytet zadania', example: 'Wysoki' })
@@ -43,18 +39,19 @@ export class CreateTaskDto {
   })
   @IsEnum(Status)
   @IsOptional()
-  status?: Status;
+  status: Status;
 
   @ApiProperty({ description: 'Czy wykonane', example: 'false' })
   @IsBoolean()
   completed: boolean;
 
   @ApiProperty({
-    type: () => Number,
+    type: Number,
     required: false,
     description: 'Id użytkownika przypisanego do zadania',
     example: 1,
   })
   @IsNumber()
+  @IsOptional()
   user_id: number;
 }

@@ -5,6 +5,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Relation,
 } from 'typeorm';
 
 export enum Status {
@@ -38,10 +39,15 @@ export class Task {
   })
   status: Status;
 
-  @ManyToOne(() => User, (user) => user.tasks)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
-
   @Column({ default: false })
   completed: boolean;
+
+  @ManyToOne(() => User, (user) => user.tasks, {
+    // lazy: false,
+    nullable: true,
+    // eager: false,
+    // cascade: true,
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: Relation<User>;
 }
